@@ -1,0 +1,23 @@
+给定两个数组，编写一个函数来计算它们的交集。
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+         nums1.sort()
+         nums2.sort()
+         index1=index2=0
+         length1,length2=len(nums1),len(nums2)
+         res=list()
+         while index1<length1 and index2<length2:
+               num1=nums1[index1]
+               num2=nums2[index2]
+               if num1==num2:
+                  if not res or num1!=res[-1]:
+                     res.append(num1)
+                  index1 +=1
+                  index2 +=1
+                elif num1<num2:
+                  index1 +=1
+                elif:
+                  index2 +=1
+        return res
+#res[-1]意为：下标-1代表list的最后一个数据
+#使用双指针，需要数组是升序
