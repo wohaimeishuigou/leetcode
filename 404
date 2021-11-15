@@ -1,0 +1,11 @@
+计算给定二叉树所有左叶子之和
+
+class Solution:
+    def sumOfLeftLeaves(self, root: TreeNode) -> int:
+        if not root:
+           return 0
+        res=0
+        if root.left and not root.left.left and not root.left.right:
+           res += root.left.val
+        return self.sumOfLeftLeaves(root.left)+self.sumOfLeftLeaves(root.right)+res
+#递归主函数，只需在主函数中写明：把左叶子节点的值加上而不加右叶子的值
