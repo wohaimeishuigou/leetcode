@@ -1,0 +1,30 @@
+46.全排列
+给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def dfs(nums,index,size,path,res,used):
+            #回溯的终止条件
+            if index==size:
+               res.append(path[:])
+               #这里如果用 res.append(path[])，返回的将是空，
+               #原因：变量 path 所指向的列表 在深度优先遍历的过程中只有一份 ，深度优先遍历完成以后，回到了根结点，成为空列表。
+               #解决办法，拷贝一份
+               return
+            for i in range(size):
+               if not used[i]:
+                  #状态变量
+                  used[i]=True
+                  path.append(nums[i])
+                  
+                  dfs(nums,index+1,size,path,res,used)
+                  #回溯后状态变量变回False
+                  used[i]=False
+                  path.pop()弹出
+        size=len(nums)
+        if size==0:
+            return []
+        res=[]
+        path=[]
+        used=[False for _ in range(size)]
+        dfs(nums,0,size,path,res,used)
+        return res
