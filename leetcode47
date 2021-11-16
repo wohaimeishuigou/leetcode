@@ -1,0 +1,29 @@
+47.全排列||
+给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
+和46的区别是不能有重复的排列
+
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        def dfs(nums,index,size,path,res,used):
+            if index==len(nums):
+               res.append(path)
+               return
+            for i in (size):
+               #和46不同之处，在这里筛选重复
+                if i>0 and nums[i]==nums[i-1] and not used[i]:
+                #搜索的数也和上一次一样，但是上一次的 1 刚刚被撤销，正是因为刚被撤销，下面的搜索中还会使用到，因此会产生重复，剪掉的就应该是这样的分支。
+                  continue
+                used[i]=True
+                dfs(nums,index+1,size,path,res,used)
+                used[i]=False
+                path.pop()
+        size=len(nums)
+        if size==0:
+           return []
+        #这里，把nums升序排列一下
+        nums.sort()#
+        used=[False for _ in range(size)]
+        res=[]
+        path=[]
+        dfs(nums,0,size,path,res,used)
+        return res
