@@ -1,0 +1,28 @@
+下一个排列：
+实现获取 下一个排列 的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列（即，组合出下一个更大的整数）。
+
+如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
+
+必须 原地 修改，只允许使用额外常数空间
+
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        i=len(nums)-2
+        while i>=0 and nums[i]>nums[i+1]:#先找到升序的数据对，即找到较小的nums[i]
+             i -= 1
+        if i>=0:
+           j=len(nums)-1
+           while j>=0 and nums[i]>nums[j]:#再找比nums[i]大的nums[j]
+                j -= 1
+        nums[i],nums[j]=nums[j],nums[i]#找到后，交换
+
+        left,right=i+1,len(nums)-1
+        while left<right:
+            nums[left],nums[right]=nums[right],nums[left]#要使变动的幅度较小，所以要把（i+1,n)区间内的数作升序排列
+            left += 1
+            right -=1
+#（i+1,n)区间内的数全为降序排列
+#可以证明区间 [i+1,n)[i+1,n) 必为降序。我们可以直接使用双指针反转区间 [i+1,n)[i+1,n) 使其变为升序，而无需对该区间进行排序
