@@ -1,0 +1,21 @@
+77.
+给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。
+
+你可以按 任何顺序 返回答案。
+
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        def dfs(n,k,begin,path,res):
+            if(len(path)==k):
+                res.append(path)
+                return
+            for i in range(begin,n+1):#这里是n+1
+                path.append(i)
+                dfs(n,k,i+1,path,res)
+                path.pop()
+        
+        res=[]
+        path=[]
+        dfs(n,k,1,path,res)
+        return res
