@@ -1,0 +1,21 @@
+90.子集||
+给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。
+
+解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        def dfs(nums,index,size,res,path):
+            if path ont in res:####多的判断1
+               res.append(path)
+            for i in range(index,size):
+               if i>index and nums[i]==nums[i-1]####多的判断2
+                  continue
+               dfs(nums,i+1,size,res,path)
+
+        res,path=[],[]
+        size=len(nums)
+        dfs(nums,0,size,res,path)
+        return res
+##和78的区别是nums数字里有重复的数，而78题的nums里都是不重复的
+##所以多了两个判断：
