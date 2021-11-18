@@ -15,3 +15,4 @@ class Solution:
         return res
 
 DFS
+##本题和90的区别是，90题里nums数字里有重复的数，而78题的nums里都是不重复的
