@@ -1,0 +1,21 @@
+56.合并区间
+以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。
+请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+          intervals.sort(key=lambda x:x[0])
+
+          merged=[]
+          for interval in intervals:
+              if not merged or merged[-1][1]<interval[0]:
+                  merged.append(intervals)
+              else:
+                  merged[-1][1]=max(merged[-1][1],interval[1])
+          return merged 
+
+##
+这道题需要把区间合并，直接合并肯定不行，所以按区间的左断点升序排序，排序之后的合并才是有效合并，并且可以合并的区间一定是连续的
+
+如果merged数组里是空的，直接把interval放进去，如果merged里最后一个区间的右端点小于当前区间的左端点，就是说这两个区间不重合，无法合并，直接加入到merged的末尾
+如果可以合并，就更新merged里最后一个区间的右端点
