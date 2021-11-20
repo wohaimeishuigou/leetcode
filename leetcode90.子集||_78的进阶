@@ -6,7 +6,7 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         def dfs(nums,index,size,res,path):
-            if path ont in res:####多的判断1
+            if path not in res:####多的判断1
                res.append(path)
             for i in range(index,size):
                if i>index and nums[i]==nums[i-1]####多的判断2
