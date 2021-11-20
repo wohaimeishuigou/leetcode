@@ -1,0 +1,40 @@
+给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 True ；否则，返回 False 。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+####回溯题
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+         direction=[(0,1),(0,-1),(1,0),(-1,0)]
+         def check(i,j,k):
+             if board[i][j]!=word[k]:
+                return False
+             if k==len(word):
+                return True
+             visited.add(i,j)
+             for di,dj in direction:
+                 newi,newj=i+di,j+dj
+                 if 0<=newi<len(board) and 0<=newj<len(board[0]):
+                    if (newi,newj) not in visited:
+                        if check(newi,newj,k+1)
+                        return True
+                        break
+             visited.remove((i,j))
+             return False
+
+         visited=set()
+         m,n=len(bard),len(board[0])
+         for i in range(m):  ##range(m)=range(0,m)
+             for j in range(n):
+                 check(i,j,0)
+                 return True
+         return False
+
+###这道题考的回溯
+思路：
+如果board[i][j]不能和当前字符相匹配，返回false
+如果遍历到最后，即已经访问到字符串的末尾，且都能匹配，返回turexist
+否则，遍历当前位置的所有相邻位置。如果从某个相邻位置出发，能够搜索到子串word[k+1..]，则返回true，否则返回false
+         
+
+                
