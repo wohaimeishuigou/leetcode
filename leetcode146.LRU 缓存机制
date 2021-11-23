@@ -4,3 +4,69 @@
 LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存
 int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。
 void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。
+
+#########哈希表+双向链表
+
+
+class DLinkedNode:
+    def __init__(self,key=0,value=0):
+       self.key=key
+       self.value=value
+       self.prev=None
+       self.next=None
+class LRUCache:
+
+    def __init__(self, capacity: int):
+       self.cache=dict()
+       # 使用伪头部和伪尾部节点  
+       self.head=DLinkedNode()
+       self.tail=DLinkedNode()
+       self.head.next=tail
+       self.tail.prev=head
+       self.capacity=capacity
+       self.size=0
+
+    def get(self, key: int) -> int:
+       if key not in self.cache:
+          return -1
+       ##如果key存在，先通过哈希表定位，再移到头部
+       node=self.cache[key]
+       self.movetoHead(node)
+       return node.value
+    
+    def put(self, key: int, value: int) -> None:
+       if key not in self.cache:
+          ###如果key不存在，创建一个新的结点
+          node=DLinkedNode(key,value)
+          ###添加到哈希表
+          self.cache[key]=node
+          ###添加到双向链表的头部
+          self.addtoHead(node)
+          self.size += 1
+          if self.size>self.capacity:
+             removed=self.removeTail()
+             self.cache.pop(removed.key)
+             self.size -= 1
+       else:
+       # 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
+          node=self.cache[key]
+          node.value=node
+          self.movetoHead(node)
+    
+
+    def addtoHead(self,node):
+       node.prev=self.head
+       node.next=self.head.next
+       self.head.next=node
+       self.head.next.prev=node
+    def removeTail(self,node):
+       node=self.tail.prev
+       self.removeNode(node)
+       return node
+    def removeNode(self,node):
+       node.prev.next=node.next
+       node.next.prev=node.prev
+    def movetoHead(self,node):
+       self.removeNode(node)##最久没使用的节点在链表尾，所以先移除，再添加到head后
+       self.addtoHead(node)
+
