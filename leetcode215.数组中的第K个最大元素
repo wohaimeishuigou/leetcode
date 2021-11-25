@@ -1,0 +1,27 @@
+215.数组中的第K个最大元素
+给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
+
+请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+###用快排
+
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        def quicksort(nums,left,right):
+            if left<right:
+               pos=partition(nums,left,right)
+               quicksort(nums,left,pos-1)
+               quicksort(nums,pos+1,right)
+            return nums
+        def partition(nums,left,right):
+            pos=left
+            for i in range(left,right):
+                if nums[i]<nums[right]:
+                   nums[pos],nums[i]=nums[i],nums[pos]
+                   pos += 1
+            nums[pos],num[right]=nums[right],nums[pos]
+            return pos
+        n=len(nums)
+        left,right=0,n-1
+        quicksort(nums,left,right)
+        return nums[n-k]
