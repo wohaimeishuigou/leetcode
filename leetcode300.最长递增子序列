@@ -14,6 +14,6 @@ class Solution:
         dp=[1]*n
         for i in range(n):
             for j in range(i):
-                if nums[j]<nums[i]:
+                if nums[j]<nums[i]:  ##nums[i]大于nums[j]的话，可以接在序列后，因为要求是严格递增的；如果nums[i]小于nums[j]的话，就跳过
                     dp[i]=max(dp[i],dp[j]+1)
         return max(dp)
