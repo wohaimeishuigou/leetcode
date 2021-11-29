@@ -1,0 +1,18 @@
+338.比特位计数
+给你一个整数 n ，对于 0 <= i <= n 中的每个 i ，计算其二进制表示中 1 的个数 ，返回一个长度为 n + 1 的数组 ans 作为答案。
+
+Brian Kernighan 算法求二进制表示1的个数
+
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        def countones(x:int):
+            ones=0
+            while x>0:
+               x=x&(x-1)
+               ones += 1
+            return ones
+        ans=[countones(i) for i in range(n+1)]
+        return ans
+###利用 \text{Brian Kernighan}Brian Kernighan 算法，可以在一定程度上进一步提升计算速度。
+Brian Kernighan 算法的原理是：x&(x-1),该运算会让x的二进制表示的最后一个1变为0，因此对x重复此操作，直到x变为0，操作次数即为二进制表示1的个数
+
