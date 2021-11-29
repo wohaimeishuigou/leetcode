@@ -1,0 +1,20 @@
+347.前k个高频元素
+给你一个整数数组 nums 和一个整数 k ，请你返回其中出现频率前 k 高的元素。你可以按 任意顺序 返回答案。
+
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count=collections.Counter(nums)
+        heap=[]
+        for key,val in count.items():
+            if len(heap)<=k:
+               if val>heap[0][0]:
+                   heapq.headreplace(heap,(val,key))
+            else:
+               heapq.heappush(heap,(val,key))
+        return [item[1] for item in heap]
+##返回的heap里的元祖是(val,key)，前面那个是出现的次数，后面那个nums中的值，所以return时是item[1]，因为要求是返回元素，即nums里的值
+
+##我不太懂的是 for循环中key,val的顺序和返回时的(val,key)顺序是不一样的，看起来是遵循return的顺序
+
+                  
