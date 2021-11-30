@@ -1,0 +1,38 @@
+416.分割等和子集
+给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+
+输入：nums = [1,5,11,5]
+输出：true
+解释：数组可以分割成 [1, 5, 5] 和 [11] 。
+
+##这道题，如果想想明白，直接看leetcode的题解
+https://leetcode-cn.com/problems/partition-equal-subset-sum/
+
+
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        n=len(nums)
+        if n<2:
+           return False
+        total=sum(nums)
+        maxNum=max(nums)
+        if total & 1:#若total是奇数，返回False
+           return False
+
+        target=total//2
+        if maxNum>target:
+           return False
+        dp=[[False]*(target+1) for _ in range(n)]
+
+        if(nums[0]<target):
+           dp[0][nums[0]]=True
+        
+        for i in range(1,n):
+           for j in range(0,target+1):
+                dp[i][j]=dp[i-1][j]
+                if nums[i]==j:
+                   dp[i][j]=True
+                if nums[i]<j:
+                   dp[i][j]=dp[i-1][j] | dp[i-1][j-nums[i]]###这里是状态转移方程
+        return dp[n-1][target]
+                
