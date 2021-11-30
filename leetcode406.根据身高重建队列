@@ -5,6 +5,7 @@
 
 
 ##通过spaces控制person的位置
+##k越大的分配位置时要求越高，所以若身高相同，先分配k值小的，再给k大的人分配位置，比较好实现
 
 class Solution:
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
@@ -12,7 +13,7 @@ class Solution:
          n=len(people)
          ans=[[] for _ in range(n)]
          for person in people:
-             spaces=person[1]+1
+             spaces=person[1]+1##k越大的分配位置时要求越高，所以若身高相同，先分配k值小的，再给k大的人分配位置，比较好实现
              for i in range(n):
                  if not ans[i]:
                     spaces -= 1
