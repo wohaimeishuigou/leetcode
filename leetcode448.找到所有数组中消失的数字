@@ -1,0 +1,17 @@
+448.找到所有数组中消失的数字
+给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
+
+输入：nums = [4,3,2,7,8,2,3,1]
+输出：[5,6]
+
+##鸽笼问题：1~n的位置表示1~n个笼子，如果出现过，相应的“鸽笼”就会被占掉，我们将数字置为负数表示被占掉了。 最后再遍历一遍，如果“鸽笼”为正数就是没出现的数字。
+
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        for n in nums:
+            nums[abs(n)-1]=-abs(nums[abs(n)-1])###数值是n的数，可以让nums中d第n个位置（对应下标是n-1）的数字标记为负
+        res=[]
+        for i,v in enumerate(nums):
+            if v>0:
+               res.append(i+1)
+        return res
