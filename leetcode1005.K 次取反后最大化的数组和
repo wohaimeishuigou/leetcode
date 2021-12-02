@@ -1,0 +1,28 @@
+1005.K次取反后最大化的数组和
+
+给你一个整数数组 nums 和一个整数 k ，按以下方法修改该数组：
+
+选择某个下标 i 并将 nums[i] 替换为 -nums[i] 。
+重复这个过程恰好 k 次。可以多次选择同一个下标 i 。
+
+以这种方式修改数组后，返回数组 可能的最大和 。
+
+class Solution:
+    def largestSumAfterKNegations(self, nums: List[int], k: int) -> int:
+        n=len(nums)
+        nums.sort()
+        for i in range(n):##假设nums中有m个负数，排序后，先把负数变为正数，若m>k,则把前k个负数变正后，numsum即为最大和
+            if nums[i]<0:
+               nums[i] *= -1
+               k--
+        nums.sort() ##把k个数变正后，再排次序，如果还有剩余的k，则此时数组均为正数
+        numsum=0
+        for num in nums:
+            numsum += num
+        if k>0:
+            if k%2==0:##剩余的k若是偶数，则有办法使得当前最大和不变，可以对一个数改变偶数次符号，不改变结果
+               return numsum
+            else:
+               numsum -= 2*nums[0]##若是奇数，则应减去nums[0]的两倍
+               return numsum
+        return numsum
