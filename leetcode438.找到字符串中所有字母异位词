@@ -1,0 +1,26 @@
+438.找到字符串中所有字母异位词
+给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+
+异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。
+
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        n,m=len(s),len(p)
+        res=[]
+        if n<m:
+           return res
+        s_cnt=[0]*26
+        p_cnt=[0]*26
+        for i in range(m):
+            s_cnt[ord(s[i])-ord('a')] += 1 ##若p="abc",则p_cnt=[1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            p_cnt[ord(p[i])-ord('a')] += 1
+        if s_cnt==p_cnt:
+            res.append(0)
+        
+        for i in range(m,n):
+            s_cnt[ord(s[i-m])-ord('a')] -= 1 ##保证m个长度不变，左边先去掉一个
+            s_cnt[ord(s[i])-ord('a')] += 1 ##这边右边加上一个新进来的
+            if s_cnt==p_cnt:
+               res.append(i-m+1)
+        return res
+        
