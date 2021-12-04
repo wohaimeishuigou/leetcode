@@ -1,1 +1,16 @@
+372.超级次方
 你的任务是计算 ab 对 1337 取模，a 是一个正整数，b 是一个非常大的正整数且会以数组形式给出。
+输入：a = 2, b = [1,0]
+输出：1024
+
+##记住公式：(x*y)%k=(x%k)(y%k)%k
+##a=2,b=[1,2,3,4]
+##2^1234=2^123^10 * 2^4
+##2^1234 %k=(2^123**10 %k) * (2^4%k)%k
+
+class Solution:
+    def superPow(self, a: int, b: List[int]) -> int:
+        if not b :
+           return 1
+        tmp=b.pop()
+        return ((self.superPow(a,b)**10)%1337) *((a**tmp)%1337)%1337
