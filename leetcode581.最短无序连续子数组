@@ -1,0 +1,28 @@
+给你一个整数数组 nums ，你需要找出一个 连续子数组 ，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
+
+请你找出符合题意的 最短 子数组，并输出它的长度。
+
+###将数组nums分为numsa，numsb，numsc，据题意，找到最短的无序数组numsb，对其排序后，整个数组nums变为升序排列。
+###两头堵，直接找找不到，就找两边不需要进行排序的numsa和numsc，找到numsa的右边界和numsc的左边界
+
+class Solution:
+    def findUnsortedSubarray(self, nums: List[int]) -> int:
+        n=len(nums)
+
+        def isSorted(nums):
+            for i in range(1,n):
+                if nums[i]<nums[i-1]:
+                    return False
+            return True
+        
+        if isSorted(nums):
+            return 0
+        numsSorted=sorted(nums)
+        left=0
+        while nums[left]==numsSorted[left]:##找numsa的右边界
+            left += 1
+        right=n-1
+        while nums[right]==numsSorted[right]:##找numsc的左边界
+            right -= 1
+        
+        return right-left+1
