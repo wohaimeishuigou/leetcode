@@ -1,0 +1,26 @@
+560.和为k的子数组
+给你一个整数数组 nums 和一个整数 k ，请你统计并返回该数组中和为 k 的连续子数组的个数。
+
+示例 1：
+
+输入：nums = [1,1,1], k = 2
+输出：2
+示例 2：
+
+输入：nums = [1,2,3], k = 3
+输出：2
+
+
+####前缀和加哈希表
+
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        pre=ans=0
+        count=dict()
+        for num in nums:
+            pre += num
+            if pre==k:
+               ans += 1
+            ans += count.get(pre-k,0)##在哈希表中找有无前缀和为pre-k的，如果有 ans加一
+            count[pre]=count.get(pre,0)+1###别忘了把当前前缀和加入到哈希表中
+        return ans
