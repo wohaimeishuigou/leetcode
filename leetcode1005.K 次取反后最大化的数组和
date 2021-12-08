@@ -12,6 +12,8 @@ class Solution:
         n=len(nums)
         nums.sort()
         for i in range(n):##假设nums中有m个负数，排序后，先把负数变为正数，若m>k,则把前k个负数变正后，numsum即为最大和
+            if k==0:
+               break
             if nums[i]<0:
                nums[i] *= -1
                k--
