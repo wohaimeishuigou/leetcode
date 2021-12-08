@@ -20,6 +20,7 @@ magazine 中的每个字符只能在 ransomNote 中使用一次。
 
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+    ####利用哈希表记录字符串里每个字符出现的个数
         notecount=collections.Counter(ransomNote)
         magacount=collectinos.Counter(magazine)
 
