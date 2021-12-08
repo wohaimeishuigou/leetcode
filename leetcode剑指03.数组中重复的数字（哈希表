@@ -4,6 +4,10 @@
 
 class Solution:
     def findRepeatNumber(self, nums: List[int]) -> int:
+       ###新建一个HashSet，记为dic
+          遍历nums中每个数字num：
+            若num已在dic中，说明重复，返回
+            若不在，将num添加到dic中
         dic=set()
         for num in nums:
             if num in dic:
