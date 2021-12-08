@@ -1,0 +1,26 @@
+剑指40.最小的k个数
+输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。
+
+##思路很简单，对arr排序，取前k个数
+##用快速排序
+###快速排序讲解
+https://www.bilibili.com/video/BV1tv411T7HQ?p=6
+
+class Solution:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        def quick_sort(arr,left,right):
+            while left<right:
+                pos=partition(arr,left,right)
+                quick_sort(arr,left,pos-1)
+                quick_sort(arr,pos+1,right)
+            return arr
+        def partition(arr,left,right):
+            for i in range(left,right):
+                if arr[i]<arr[right]:
+                    arr[i],arr[pos]=arr[pos],arr[i]
+                    pos += 1
+            arr[pos],arr[right]=arr[right],arr[pos]
+            return pos
+        ###上面是快速排序，取前k个
+        quick_sort(arr,0,len(arr)-1)
+        return arr[:k]
