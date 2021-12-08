@@ -5,6 +5,8 @@
 ##用快速排序
 ###快速排序讲解
 https://www.bilibili.com/video/BV1tv411T7HQ?p=6
+##leetcode上的快排讲解
+https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/solution/jian-zhi-offer-40-zui-xiao-de-k-ge-shu-j-9yze/
 
 class Solution:
     def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
