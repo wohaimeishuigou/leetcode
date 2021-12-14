@@ -25,7 +25,7 @@ class Solution:
              direc=((0,1),(0,-1),(1,0),(-1,0))
              for dx,dy in direc:
                  nx,ny=x+dx,y+dy
-                 if not (0<=nx<m and 0<=ny<n and grid[nx][ny]==originalColor):
+                 if not (0<=nx<m and 0<=ny<n and grid[nx][ny]==originalColor):## ture and False 的结果是False ，有一个false，and后的结果就是false
                      isBorder=True
                  else not visited[nx][ny]:
                      self.dfs(grid,nx,ny,border,visited,originalColor)
