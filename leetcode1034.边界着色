@@ -15,6 +15,7 @@ class Solution:
          visited=[[False]*n for _ in range(m)]
          border=[]
          originalColor=grid[row][col]
+         visited[row][col]=True
          self.dfs(grid,row,col,border,visited,originalColor)
          for x,y in border:
               grid[x][y]=color
@@ -28,6 +29,7 @@ class Solution:
                  if not (0<=nx<m and 0<=ny<n and grid[nx][ny]==originalColor):## ture and False 的结果是False ，有一个false，and后的结果就是false
                      isBorder=True
                  else not visited[nx][ny]:
+                     visited[nx][ny]=True
                      self.dfs(grid,nx,ny,border,visited,originalColor)
             if isBorder:
                 border.append((x,y))
