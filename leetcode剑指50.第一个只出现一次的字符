@@ -1,0 +1,23 @@
+剑指offer50.第一个只出现一次的字符
+在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
+
+示例 1:
+输入：s = "abaccdeff"
+输出：'b'
+示例 2:
+输入：s = "" 
+输出：' '
+
+##考哈希表
+##第一次循环中，第一次枚举到字符c时，字符c不在哈希表中，标记为true，若第二次或后面每一次再枚举到字符c，标记为false
+##第二次循环，是为了找第一个标记仍为true的字符，仍为true说明该字符只出现了一次
+
+class Solution:
+    def firstUniqChar(self, s: str) -> str:
+         dic={}
+         for c in s:
+             dic[c]=not c in dic
+         for c in s:
+             if dic[c]:
+                return c
+         return ' '
