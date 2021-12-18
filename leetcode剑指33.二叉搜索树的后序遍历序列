@@ -1,0 +1,22 @@
+剑指offer33.二叉搜索树的后序遍历序列
+输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 true，否则返回 false。假设输入的数组的任意两个数字都互不相同。
+
+
+        #对于二叉树，递归的思路是对左子树与右子树分别进行处理，按照这个思路，
+        #先从后序遍历序列中找到左右子树，第一个大于根节点的节点肯定在右子树，记录该节点的下标m，(i,m-1)为左子树，(m,j-1)为右子树
+        #判断 是不是左子树的节点值都小于根节点，右子树的值都大于根节点
+
+class Solution:
+    def verifyPostorder(self, postorder: List[int]) -> bool:
+        def recur(i,j):
+            if i>=j:
+                return true
+            p=i
+            while postorder[p]<postorder[j]:#先找到序列中第一个大与根节点的树
+                p += 1
+            m=p
+            while postorder[p]>postorder[j]:##判断右子树
+                p += 1
+            return p==j and recur(i,m-1) and recur(m,j-1)##递归
+
+        return recur(0,len(postorder)-1)
