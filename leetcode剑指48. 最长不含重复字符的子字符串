@@ -1,0 +1,22 @@
+剑指 Offer 48. 最长不含重复字符的子字符串
+请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
+
+输入: "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        dic={}
+        res=tmp=0
+        ##如果s[i]在子字符串sub[j-1]区间之外，则代表子字符串sub[j-1]区间内没有和s[j]重复的字符，且当前字符最长，所以以s[j]结尾的最长不重复子字符串只需要在s[j-1]的末尾加上s[j]
+        ##即可，其长度dp[j] =dp[j-1]+1       
+        for j in range(len(s)):
+            i=dic.get(s[j],-1)#获取索引
+            dic[s[j]]=j#更新哈希表
+            tmp=tmp+1 if tmp<j-i else j-i
+            res=max(res,tmp)
+        return res
+###获取索引的这句话不是很懂
+i=dic.get(s[j],-1)
