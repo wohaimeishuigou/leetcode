@@ -1,0 +1,36 @@
+剑指 Offer 59 - II. 队列的最大值
+请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的均摊时间复杂度都是O(1)。
+
+若队列为空，pop_front 和 max_value 需要返回 -1
+
+输入: 
+["MaxQueue","push_back","push_back","max_value","pop_front","max_value"]
+[[],[1],[2],[],[],[]]
+输出: [null,null,null,2,1,2]
+
+
+
+class MaxQueue:
+
+    def __init__(self):
+        self.queue=queue.Queue()
+        self.deque=deque.Queue()
+
+    def max_value(self) -> int:
+        return self.deque[0] if self.deque else -1
+
+
+    def push_back(self, value: int) -> None:
+        self.queue.put(value)#先把value放到queue里
+        while self.deque and self.deque[-1]<value:#比队列当前末尾值self.deque[-1]小的，直接添加进去，如果value比队列当前末尾值self.deque[-1]大，先将deque弹空，再添加
+                  ###因为要保证deque递减
+            self.deque.pop()
+        self.deque.append(value)
+
+    def pop_front(self) -> int:#弹出队首的元素
+        if self.queue.empty():#如果队列为空，返回-1
+            return -1
+        val=self.queue.get()#先去队列的第一个值
+        while val==self.deque[0]:#如果和双端队列的第一个值相等，弹出
+            self.deque.popleft()
+        return val
