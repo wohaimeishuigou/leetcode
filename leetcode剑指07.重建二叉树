@@ -3,6 +3,7 @@
 
 假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
 
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
