@@ -1,0 +1,38 @@
+剑指offer13.机器人的运动范围
+地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），
+也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。
+请问该机器人能够到达多少个格子？
+
+输入：m = 2, n = 3, k = 1
+输出：3
+
+##根据题意，机器人应该只能向右或向下移动，因为k值相当于沿着副对角线的方向划一条线，允许的左边范围只能在该线的左上方。这就是说每一个接下来的路径可以由上方或左方的路径移动得到
+##所以只需要向下或向右移动就够了
+
+class Solution:
+    def movingCount(self, m: int, n: int, k: int) -> int:
+    ###定义求行列坐标数位和的函数digsum
+        def digsum(x):
+            s=0
+            while x!=0:
+                s += x%10
+                x=x//10
+            return s
+        def dfs(i,j,k):
+            if i>=m or j>=n or digsum(i)+digsum(j)>k or (i,j) in visited:
+                return 0
+            visited.add((i,j))
+            return 1+dfs(i+1,j,k)+dfs(i,j+1,k)
+        visited=set()
+        return dfs(0,0,k)
+
+        ###该方法不直接求数位和，而是根据数位和的变化规律间接来求
+        def dfs(i,j,si,sj):
+            if i>=m or j>=n or (si+sj)>k or (i,j) in visited:
+                return 0
+            visited.add((i,j))
+            return 1+dfs(i+1,j,si+1 if (i+1)%10 else si-8,sj)+dfs(i,j+1,si,sj+1 if (j+1)%10 else sj-8)##该数位和的变化规律仅适用于两位数
+                       ###数字i的数位和是si,如果数字i+1对10求模!=0，则i+1的数位和是si+1（如i=18，19）
+                       ###如果数字i+1对1求模等于0，则i+1的数位和是si-8（如i=19，20）
+        visited=set()
+        return dfs(0,0,0,0)
