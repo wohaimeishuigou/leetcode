@@ -1,0 +1,26 @@
+剑指offer38.字符串的排列
+输入一个字符串，打印出该字符串中字符的所有排列。
+你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+
+输入：s = "abc"
+输出：["abc","acb","bac","bca","cab","cba"]
+
+class Solution:
+    def permutation(self, s: str) -> List[str]:
+        c,res=list(s),[]
+        def dfs(x):
+            if x==len(c)-1:
+                res.append(''.join(c))#因为交换相当于在c上进行的，原地修改c，所以这也是为什么固定位交换后还要再交换回去
+                return res
+            dic=set()
+            for i in range(x,len(c)):
+                if c[i] in dic:##避免重复的字符排列，即剪枝
+                    continue
+                dic.add(c[i])
+                c[x],c[i]=c[i],c[x]#交换，将c[i]固定在x位
+                dfs(x+1)
+                c[x],c[i]=c[i],c[x]#恢复交换
+        dfs(0)
+        return res
+                
+             
