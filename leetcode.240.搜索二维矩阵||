@@ -15,7 +15,7 @@ class Solution:
             return False
 
         row,col=0,n-1
-        while(row<m-1 and col>=0):
+        while(row<m and col>=0):
             if (target>matrix[row][col]):
                 row += 1
             elif(target<matrix[row][col]):
